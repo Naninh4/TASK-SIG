@@ -1,0 +1,53 @@
+form{
+    margin: auto;
+}
+form > div{
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.container {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+  }
+.flex,form > div{
+    display: flex;
+}
+.flex-center,.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  #Logotipo {
+    position: absolute;
+    top: 50%; /* Posição inicial vertical da imagem */
+    left: 50%; /* Posição horizontal da imagem */
+    /* são usados para posicionar a imagem no centro vertical e horizontalmente do contêiner.  */
+    transform: translate(-50%, -50%);
+    animation: subirDescer 2s infinite alternate ease-in-out;
+    /* A propriedade animation é usada para aplicar uma animação chamada "subirDescer" à imagem. O valor 3s define a duração da animação em 3 segundos, infinite indica que a animação será repetida infinitamente e alternate indica que a animação irá alternar entre os estados inicial e final. ease-in-out */
+  }
+  
+  @keyframes subirDescer {
+    0% {
+      transform: translate(-50%, -50%);
+    }
+    100% {
+      transform: translate(-50%, -50%) translateY(-20px); /* Ajuste o valor da translação vertical de acordo com suas necessidades */
+    }
+    /* A regra @keyframes chamada "subirDescer" define os dois estados da animação. Em 0%, a imagem está posicionada no centro originalmente (transform: translate(-50%, -50%)). Em 100%, a imagem é deslocada verticalmente em -20 pixels (transform: translate(-50%, -50%) translateY(-20px)). Esses dois estados são interpolados suavemente ao longo da duração da animação, criando o efeito de subida e descida suave da imagem. */
+  }
+  
+
+input, select{
+    border: 0;
+    background-color: rgba(180, 180, 180, 0.274);
+    padding: 10px;
+    border-bottom: 1px solid black;
+    border-radius: 30px;
+    margin: 0;
+}
+

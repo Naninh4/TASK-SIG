@@ -1,0 +1,8 @@
+main,section{
+    margin: auto;
+    display: flex;
+}
+body{
+    font-family: sans-serif;
+    background: linear-gradient(to bottom right, rgba(2, 94, 2, 0.486), rgb(0, 255, 115));
+}

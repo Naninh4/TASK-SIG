@@ -1,0 +1,48 @@
+
+<div class="container">
+    <img id="Logotipo" src="/assets/img/task_default.png" width="300px" height="300px">
+
+</div>
+<section>
+    <form  (ngSubmit)="SetTasks(titulo.value, data.value, responsave.value, descricao.value)">
+        <div>
+            <label for="">Nome:</label>
+            <input type="text" placeholder="Título da Tarefa" #titulo>
+        </div>
+        <div>
+            <label for="">Data:</label>
+            <input type="date" #data>
+        </div>
+    
+        <div>
+            <label for="">Responsável:</label>
+            <select  name="select" #responsave>
+                <option value="#">Default</option>
+                <option *ngFor="let res of ResponsavelList " value="{{res.nome}}">{{res.nome}}</option>
+            </select>
+        </div>
+        <div>
+            <label for="">Descrição</label>
+            <textarea name="Descrição" rows="5" cols="50" #descricao></textarea>
+        </div>
+        <button type="submit">Enviar</button>
+    </form>
+</section>
+<br>
+    <Label>Nome do responsável: </Label>
+    <input type="text" #NomeResponsavel>
+    <button (click)="SetResponsaveis(NomeResponsavel.value)">Enviar</button>
+<section id="listagem" for>
+    <ul *ngFor="let res of ResponsavelList">
+        <li>{{res.nome}}</li>
+    </ul>
+</section>
+<section>
+    
+    <ul *ngFor="let tarefa of ListaDeTarefas">
+        <li>
+            <p>{{tarefa.id}}</p> 
+            <p>{{tarefa.titulo}}</p>
+        </li>
+    </ul>
+</section>
