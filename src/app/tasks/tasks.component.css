@@ -7,17 +7,70 @@ form > div{
     justify-content: center;
 
 }
+.main_tasks > div{
+  width: 50%;
+}
+section{
+  background-color: white !important;
+  width: 80%;
+  border: 1px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin: auto;
+  margin-top: 30px !important;
+  border-radius: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-.container {
+
+table{
+  margin: auto;
+  width: 100%;
+
+}
+
+th{
+  width: 30%;
+  text-align: center;
+  padding: 10px;
+
+}
+td{
+  text-align: center;
+}
+
+#ResponsavelTemplate > div{
+  width: 50%;
+}
+
+.containerlogo {
     position: relative;
-    height: 300px;
+    height: auto;
+    width: auto;
     overflow: hidden;
   }
-.flex,form > div{
+
+.flex, .flex-start, .flex-center,form > div{
     display: flex;
 }
+#buttonaddresp{
+  padding: 0;
+  border: 0;
+  background-color: rgba(240, 248, 255, 0);
+  border-radius: 50px;
+}
+
+
+p{
+  margin: 0;
+  margin-left: 10px;
+}
+.flex-start{
+  justify-content: start;
+  align-items: center;
+}
 .flex-center,.container{
-    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -30,7 +83,10 @@ form > div{
     animation: subirDescer 2s infinite alternate ease-in-out;
     /* A propriedade animation é usada para aplicar uma animação chamada "subirDescer" à imagem. O valor 3s define a duração da animação em 3 segundos, infinite indica que a animação será repetida infinitamente e alternate indica que a animação irá alternar entre os estados inicial e final. ease-in-out */
   }
-  
+#selectresp{
+  margin-right: 30px ;
+  width: 100%;
+}
   @keyframes subirDescer {
     0% {
       transform: translate(-50%, -50%);
@@ -42,12 +98,5 @@ form > div{
   }
   
 
-input, select{
-    border: 0;
-    background-color: rgba(180, 180, 180, 0.274);
-    padding: 10px;
-    border-bottom: 1px solid black;
-    border-radius: 30px;
-    margin: 0;
-}
+
 

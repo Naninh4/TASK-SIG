@@ -1,48 +1,72 @@
 
-<div class="container">
-    <img id="Logotipo" src="/assets/img/task_default.png" width="300px" height="300px">
+<section class="main_tasks">
+    <div>
+        <div class="d-flex justify-content-center align-itens-center">
+            <h3>CADASTRO DE TAREFAS</h3>
+        </div>
+        <form (ngSubmit)="SetTasks(titulo.value, data.value, responsave.value, descricao.value)">
+            <div>
+                <label for="">Nome:</label>
+                <input type="text" placeholder="Título da Tarefa" #titulo>
+            </div>
+            <div>
+                <label for="">Data:</label>
+                <input type="date" #data>
+            </div>
 
-</div>
-<section>
-    <form  (ngSubmit)="SetTasks(titulo.value, data.value, responsave.value, descricao.value)">
-        <div>
-            <label for="">Nome:</label>
-            <input type="text" placeholder="Título da Tarefa" #titulo>
-        </div>
-        <div>
-            <label for="">Data:</label>
-            <input type="date" #data>
-        </div>
+            <div>
+                <label for="">Responsável:</label>
+                <div id="ResponsavelTemplate" class="flex-start">
+                    <div>
+                        <select id="selectresp" name="select" #responsave>
+                            <option value="#">Default</option>
+                            <option *ngFor="let res of GetResponsaveis()" value="{{res.nome}}">{{res.nome}}</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex-center">
+                        <a id="buttonaddresp" (click)="SetResponsaveis()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                          </svg></a>
+                        
+                          <p>Add Responsável</p>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            <div>
+                <label for="">Descrição</label>
+                <textarea name="Descrição" rows="5" cols="50" #descricao></textarea>
+            </div>
+
+            <button class="btn btn-success" type="submit">Enviar</button>
+        </form>
+    </div>
+    <div class="containerlogo">
+        <img id="Logotipo" src="/assets/img/task_default.png" width="400px" height="400px">
+    </div>
     
-        <div>
-            <label for="">Responsável:</label>
-            <select  name="select" #responsave>
-                <option value="#">Default</option>
-                <option *ngFor="let res of ResponsavelList " value="{{res.nome}}">{{res.nome}}</option>
-            </select>
-        </div>
-        <div>
-            <label for="">Descrição</label>
-            <textarea name="Descrição" rows="5" cols="50" #descricao></textarea>
-        </div>
-        <button type="submit">Enviar</button>
-    </form>
-</section>
-<br>
-    <Label>Nome do responsável: </Label>
-    <input type="text" #NomeResponsavel>
-    <button (click)="SetResponsaveis(NomeResponsavel.value)">Enviar</button>
-<section id="listagem" for>
-    <ul *ngFor="let res of ResponsavelList">
-        <li>{{res.nome}}</li>
-    </ul>
 </section>
 <section>
-    
-    <ul *ngFor="let tarefa of ListaDeTarefas">
-        <li>
-            <p>{{tarefa.id}}</p> 
-            <p>{{tarefa.titulo}}</p>
-        </li>
-    </ul>
+    <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Tarefa</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody   *ngFor="let tarefa of GetListadeTarefas()">
+          <tr>
+            <td>{{tarefa.id}}</td>
+            <td>{{tarefa.titulo}}</td>
+            <td>
+                <a href="editarTarefa(this)">Editar</a> |
+                <a href="removerTarefa(this)">Excluir</a> |
+                <a href="marcarConcluida(this)">Concluir</a>
+            </td>
+        </tr>
+        </tbody>
+      </table>
 </section>

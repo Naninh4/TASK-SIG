@@ -1,1 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+    width: 100% !important;
+
+}
+
+.btn{
+    border-radius: 30px;
+    margin: 2px;
+  }
+h3{
+    color: rgb(51, 172, 51);
+}
+a{
+    color: black;
+}
+#bv{
+    color: rgb(231, 247, 229);
+    font-size: 20px;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('assets/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+  }
+  input, select, textarea{
+    border: 0;
+    background-color: rgba(180, 180, 180, 0.274);
+    padding: 10px;
+    border-bottom: 1px solid  rgb(51, 172, 51);
+    border-radius: 30px;
+    margin: 0;
+}
+textarea{
+    border-radius: 20px !important;
+}
+
+body {
+   
+    font-family: 'Montserrat' sans-serif;
+    font-size: 12px;
+    margin: 0;
+    background: linear-gradient(to bottom right, rgba(1, 151, 1, 0.329), rgb(143, 255, 194)) no-repeat;
+} 
