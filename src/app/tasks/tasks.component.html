@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-center align-itens-center">
             <h3>CADASTRO DE TAREFAS</h3>
         </div>
-        <form (ngSubmit)="SetTasks(titulo.value, data.value, responsave.value, descricao.value)">
+        <form id="cadastro" (ngSubmit)="SetTasks(titulo.value, data.value, responsave.value, descricao.value)">
             <div>
                 <label for="">Nome:</label>
                 <input type="text" placeholder="Título da Tarefa" #titulo>
@@ -19,7 +19,7 @@
                 <div id="ResponsavelTemplate" class="flex-start">
                     <div>
                         <select id="selectresp" name="select" #responsave>
-                            <option value="#">Default</option>
+                            <option value="#">Selecione</option>
                             <option *ngFor="let res of GetResponsaveis()" value="{{res.nome}}">{{res.nome}}</option>
                         </select>
                     </div>
@@ -35,7 +35,7 @@
                 </div>
                 
             </div>
-            <div>
+            <div class="flex">
                 <label for="">Descrição</label>
                 <textarea name="Descrição" rows="5" cols="50" #descricao></textarea>
             </div>
@@ -48,25 +48,69 @@
     </div>
     
 </section>
-<section>
+<section id="listagem">
+    <form>
+        <div>
+          <label for="numero">Número:</label >
+          <input type="number" #id (input)="searchId($event)">
+        </div>
+      
+        <div class="flex-between">
+            <div>           
+                <label for="titulo">Título/Descrição:</label>
+                <input type="text" #titulo (input)="searchTitle($event)">
+            </div>
+
+          <div>
+            <label for="responsavel">Responsável:</label>
+            <select id="responsavel" #responsavel (input)="searchResponsavel($event)" required>
+              <option value="">Selecione um responsável</option>
+              <option *ngFor="let res of GetResponsaveis()" value="{{res.nome}}">{{res.nome}}</option>
+            </select>
+          </div>
+          
+        <div>
+            <label for="status">Status:</label>
+            <select id="status" #status  (input)="searchStatus($event)"  required>
+              <option value="#">Selecione um status</option>
+              <option value="true">Concluído</option>
+              <option value="false">Em andamento</option>
+            </select>
+          </div>
+        </div>
+        
+        
+      </form>
+      
     <table>
         <thead>
           <tr>
             <th>id</th>
             <th>Tarefa</th>
+            <th>Responsavel</th>
+            <th>Descrição</th>
             <th>Ações</th>
           </tr>
         </thead>
-        <tbody   *ngFor="let tarefa of GetListadeTarefas()">
+        <tbody  *ngFor="let tarefa of ViewsTarefas">
           <tr>
             <td>{{tarefa.id}}</td>
             <td>{{tarefa.titulo}}</td>
+            <td>{{tarefa.responsavel}}</td>
+            <td>{{tarefa.descricao}}</td>
             <td>
-                <a href="editarTarefa(this)">Editar</a> |
-                <a href="removerTarefa(this)">Excluir</a> |
-                <a href="marcarConcluida(this)">Concluir</a>
+                <a href="#">Editar</a> |
+                <a href="#" (click)="removerTarefa(tarefa.id)">Excluir</a> |
+                <ng-container *ngIf="tarefa.status">
+                  <span>Concluída</span>
+                </ng-container>
+                <ng-container *ngIf="!tarefa.status">
+                  <a href="#" (click)="marcarConcluida(tarefa.id)">Concluir</a>
+                </ng-container>
+                
             </td>
         </tr>
         </tbody>
       </table>
+      <button class="btn btn-outline-success mt-4" (click)="Recarregar()">Listar todos</button>
 </section>

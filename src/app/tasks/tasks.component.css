@@ -1,11 +1,30 @@
-form{
-    margin: auto;
-}
-form > div{
+
+#cadastro > div{
     margin: auto;
     flex-direction: column;
     justify-content: center;
 
+}
+input, select{
+  width: 100%;
+}
+
+
+.flex-between{
+  justify-content: space-between;
+  align-items: end;
+}
+
+#listagem{
+  display: flex;
+  flex-direction: column;
+}
+#listagem > form{
+  display: flex;
+  flex-direction: column;
+}
+#listagem > form > div{
+  margin-top: 20px;
 }
 .main_tasks > div{
   width: 50%;
@@ -27,11 +46,12 @@ section{
 table{
   margin: auto;
   width: 100%;
+  margin-top: 20px;
 
 }
 
 th{
-  width: 30%;
+  width: 20%;
   text-align: center;
   padding: 10px;
 
@@ -51,7 +71,7 @@ td{
     overflow: hidden;
   }
 
-.flex, .flex-start, .flex-center,form > div{
+.flex,.flex-between, .flex-start, .flex-center{
     display: flex;
 }
 #buttonaddresp{
@@ -73,7 +93,9 @@ p{
 .flex-center,.container{
     justify-content: center;
     align-items: center;
+    flex-direction: row;
 }
+
   #Logotipo {
     position: absolute;
     top: 50%; /* Posição inicial vertical da imagem */
