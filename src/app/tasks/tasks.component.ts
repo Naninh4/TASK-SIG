@@ -1,42 +1,47 @@
-import { Component,OnInit} from '@angular/core';
+import { Component,ElementRef,OnInit, Renderer2, ViewChild} from '@angular/core';
 import { ResponsaveisTasksComponent } from '../responsaveis-tasks/responsaveis-tasks.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
+import { Banco} from './task';
+
 
 @Component({
   selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
+  templateUrl: './tasks.component.html' ,
   styleUrls: ['./tasks.component.css']
 })
 
 export class TasksComponent{
+  @ViewChild('tarefaAlterada', { static: false }) tarefaAlteradaRef!: ElementRef;
   private titulo: string = '';
   private data: string = '';
   private responsavel: string ='';
   private descricao: string = '';
   private status: boolean = false;
+  private prioridade: String ='';
   private ResponsavelList: any[] = [];
   private ListaDeTarefas: any[] = [];
   public ViewsTarefas: any[] = [];
+  public tarefaalterada: any = [];
+  private ListPrioridade: any[]=['baixa','media','alta'];
+  public banco: Banco = new Banco();
+  private tar: any[] = [];
 
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private renderer: Renderer2){
+
+  }
 
   ngOnInit(): void {
-    this.ResponsavelList = [
-      { id: 1, nome: 'Livia Vitoria' },
-      { id: 2, nome: 'João Silva' },
-      { id: 3, nome: 'Maria Souza' }
-    ];
-    this.ListaDeTarefas = [
-      { id: 1, titulo: "Fazer a comida", data: "29-03-2200", descricao: "armaria", responsavel: this.ResponsavelList[0].nome, status: false },
-      { id: 2, titulo: "Limpar a casa", data: "30-03-2200", descricao: "limpeza geral", responsavel: this.ResponsavelList[1].nome, status: false },
-      { id: 3, titulo: "Fazer exercícios", data: "01-04-2200", descricao: "academia", responsavel: this.ResponsavelList[2].nome, status: false },
-      { id: 4, titulo: "Comprar mantimentos", data: "02-04-2200", descricao: "supermercado", responsavel: this.ResponsavelList[0].nome, status: false },
-      { id: 5, titulo: "Estudar para o exame", data: "03-04-2200", descricao: "matemática", responsavel: this.ResponsavelList[1].nome, status: false }
-    ];
+    
+   this.ResponsavelList = this.banco.ResponsavelList
+   this.ListaDeTarefas = this.banco.ListaDeTarefas
+    
   }
   Recarregar(): void {
     this.ViewsTarefas = this.ListaDeTarefas;
+  }
+  GetPrioridade(){
+    return this.ListPrioridade
   }
   // cadastrando os responsaveis atrasvés de um pop-up simples
   SetResponsaveis() {
@@ -55,8 +60,9 @@ export class TasksComponent{
           }
     });
   }
+ 
   
-  SetTasks(titulo: string, data: string, responsavel: string, descricao: string){ // cadastrando tarefas
+  SetTasks(titulo: string, data: string, responsavel: string, descricao: string, prioridade: string){ // cadastrando tarefas
     if (titulo.trim().length === 0) {
       return alert("Preencha o título da tarefa");
     }
@@ -66,13 +72,17 @@ export class TasksComponent{
     if (responsavel === "#") {
       return alert("Indique o responsável pela da tarefa");
     }
+    if (prioridade === "#") {
+      return alert("Indique a prioridade da tarefa");
+    }
     const novaTarefa = {
       id: this.ListaDeTarefas.length + 1,
       titulo: titulo,
       data: data,
       responsavel: responsavel,
       descricao: descricao,
-      status: false
+      status: false,
+      prioridade: prioridade
     };
     const tarefa_cadastrada = this.ListaDeTarefas.find(tarefa => tarefa.titulo.toLowerCase() === titulo.toLowerCase());
     if (!tarefa_cadastrada) {
@@ -80,6 +90,7 @@ export class TasksComponent{
     }
 
   }
+
   GetResponsaveis(){
     return this.ResponsavelList;
   }
@@ -93,34 +104,13 @@ export class TasksComponent{
      this.ViewsTarefas =  this.ListaDeTarefas.filter((tarefa) => tarefa.descricao.toLowerCase().includes(value) || tarefa.titulo.toLowerCase().includes(value))
     
     }
-    searchStatus(e: Event): void {
-      const target = e.target as HTMLSelectElement;
-      const value = target.value;
-      if (value === "true"){
-        this.ViewsTarefas = this.ListaDeTarefas.filter((tarefa) => tarefa.status === true);
-      }else{
-        if(value === "#"){
-          this.ViewsTarefas = []
-        }else{
-        this.ViewsTarefas = this.ListaDeTarefas.filter((tarefa) => tarefa.status === false);
-      }
-    }
-    }
+    
+   
+   
   removerTarefa(id: string){
       this.ListaDeTarefas = this.ListaDeTarefas.filter((tarefa) => tarefa.id !== id);
-      // O método filter recebe uma função de callback que é executada para cada elemento da lista de tarefas. Essa função verifica se o ID da tarefa é diferente do ID que foi passado como parâmetro. Se a condição for verdadeira, a tarefa é mantida na lista filtrada; caso contrário, ela é removida.
-    
+      this.Recarregar()
   }
-  searchResponsavel(e: Event): void {
-    const target = e.target as HTMLSelectElement;
-    const value = target.value;
-  
-    this.ViewsTarefas = this.ListaDeTarefas.filter((tarefa) => tarefa.responsavel === value);
-  this.searchStatus
-  }
-  
-  
-  
   searchId(e: Event): void {
     const target = e.target as HTMLInputElement;
     const value = target.value;
@@ -133,8 +123,93 @@ export class TasksComponent{
     console.log(tarefa);
     if (tarefa){
       tarefa.status = true;
+      postMessage("Tarefa Concluída :)")
+      this.Recarregar()
     }else{
       alert("Tarefa não encontrada.")
     }
   }
+  searchResp(e: Event): void {
+    const target = e.target as HTMLSelectElement;
+    const value = target.value;
+    this.responsavel = value;
+    this.ViewsTarefas = this.ListaDeTarefas.filter((tarefa) => tarefa.responsavel === value);
+    this.searchStatus
+  }
+  
+  searchStatus(e: Event): void {
+
+    const target = e.target as HTMLSelectElement;
+    const value = target.value;
+    if (value === "true"){
+      this.ViewsTarefas = this.ListaDeTarefas.filter((tarefa) => tarefa.status === true);
+    }else{
+      
+      if(value === "#"){
+        this.ViewsTarefas = []
+      }else{
+      this.ViewsTarefas = this.ListaDeTarefas.filter((tarefa) => tarefa.status === false);
+    }
+  }
+  }
+  searchResponsavel(e: Event): void {
+    const target = e.target as HTMLSelectElement;
+    const value = target.value;
+    this.responsavel = value;
+    this.ViewsTarefas = this.ListaDeTarefas.filter((tarefa) => tarefa.responsavel === value);
+    this.searchStatus
+  }
+  SelectTarefa(id: string){
+    this.tarefaalterada = id
+    this.tarefaAlteradaRef.nativeElement.textContent = this.tarefaalterada;
+  }
+  GetTarefaId(){
+    const id = this.tarefaAlteradaRef.nativeElement.textContent
+    this.tar =  this.ListaDeTarefas.filter((tarefa) => tarefa.id === id)
+    return this.tar;
+  }
+    AlterarTarefa(
+      titulo: string,
+      data: string,
+      descricao: string,
+      responsavel: string,
+      status: string,
+      prioridade: string
+    ): void {
+      // Lógica a ser executada quando o botão de cancelamento for clicado
+      const id = this.tarefaAlteradaRef.nativeElement.textContent;
+      if (status === 'true') {
+        this.status = true;
+      } else {
+        this.status = false;
+      }
+      if (id === '') {
+        alert('Selecione uma tarefa no campo Editar da coluna das ações.');
+      } else {
+        const index = this.ListaDeTarefas.findIndex((tarefa) => tarefa.id === parseInt(id));
+        console.log(index);
+        if (index !== -1) {
+          const novaTarefa = {
+            id: parseInt(id),
+            titulo: titulo,
+            descricao: descricao,
+            data: data,
+            responsavel: responsavel,
+            status: this.status,
+            prioridade: prioridade
+          };
+          this.ListaDeTarefas[index] = novaTarefa;
+          this.ViewsTarefas = [...this.ListaDeTarefas];
+          this.tarefaAlteradaRef.nativeElement.textContent = null;
+          alert('Tarefa Alterada.');
+        } else {
+          alert('Preencha os campos vazios.');
+        }
+      }
+    }
+    
+    
+    GetTarefaAlterada(){
+      return this.tarefaalterada
+    }
 }

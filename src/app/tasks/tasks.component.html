@@ -1,10 +1,91 @@
+<div class="buttons">
+  <a href="#listagem"><button class="btn btn-success">Listagem</button></a>
+  <a href="#cadastro"><button class="btn btn-success">Cadastro</button></a>
+  <a href="#editaritem"><button class="btn btn-success">Edição</button></a>
+</div>
+<section id="listagem" class="container-fluid">
+  <div class="container">
+    <div>
+    <a href="#cadastrosec"><button  class="btn btn-outline-success"> Cadastrar Tarefa </button></a>
+    <button  class="btn btn-outline-success " (click)="Recarregar()">Listar todos</button>
+    <div class="d-flex justify-content-center align-itens-center">
+      <h3>FILTRAR POR CAMPO: </h3>
+  </div>
+  </div>
+  <form class="">
+      <div>
+        <label for="numero">Número:</label >
+        <input type="number" #idevent (input)="searchId($event)">
+      </div>
+    
+      <div class="flex-between">
+          <div>           
+              <label for="titulo">Título/Descrição:</label>
+              <input type="text" #tituloevent (input)="searchTitle($event)">
+          </div>
 
-<section class="main_tasks">
+        <div>
+          <label for="responsavel">Responsável:</label>
+          <select id="responsavel" #responsavelevent (input)="searchResponsavel($event)" required>
+            <option value="">Selecione um responsável</option>
+            <option *ngFor="let res of GetResponsaveis()" value="{{res.nome}}">{{res.nome}}</option>
+          </select>
+        </div>
+        
+      <div>
+          <label for="status">Status:</label>
+          <select id="status" #statusevent  (input)="searchStatus($event)"  required>
+            <option value="#">Selecione um status</option>
+            <option value="true">Concluído</option>
+            <option value="false">Em andamento</option>
+          </select>
+        </div>
+      </div>
+      
+      
+    </form>
+  </div>
+  <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Tarefa</th>
+          <th>Responsavel</th>
+          <th>Descrição</th>
+          <th>Prioridade</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody  *ngFor="let tarefa of ViewsTarefas">
+        <tr>
+          <td>{{tarefa.id}}</td>
+          <td>{{tarefa.titulo}}</td>
+          <td>{{tarefa.responsavel}}</td>
+          <td>{{tarefa.descricao}}</td>
+          <td>{{tarefa.prioridade}}</td>
+          <td>
+            <!-- vc tava pensando em fazer essa função editar retornar só o id e mandar lá para baixo da página onde estariaa um formulário 
+            que receberia os campos padrao da tarefa e armazenasse de acordo com o id que o editar forneceu  -->
+              <a href="#editaritem" ><a (click)="SelectTarefa(tarefa.id)">Editar</a></a> |
+              <a href="#" (click)="removerTarefa(tarefa.id)">Excluir</a> |
+              <ng-container *ngIf="tarefa.status">
+                <span>Concluída</span>
+              </ng-container>
+              <ng-container *ngIf="!tarefa.status">
+                <a href="#" (click)="marcarConcluida(tarefa.id)">Concluir</a>
+              </ng-container>
+              
+          </td>
+      </tr>
+      </tbody>
+    </table>
+</section>
+<section id="cadastrosec" class="main_tasks">
     <div>
         <div class="d-flex justify-content-center align-itens-center">
             <h3>CADASTRO DE TAREFAS</h3>
         </div>
-        <form id="cadastro" (ngSubmit)="SetTasks(titulo.value, data.value, responsave.value, descricao.value)">
+        <form id="cadastro" (ngSubmit)="SetTasks(titulo.value, data.value, responsave.value, descricao.value, prioridade.value)">
             <div>
                 <label for="">Nome:</label>
                 <input type="text" placeholder="Título da Tarefa" #titulo>
@@ -33,6 +114,13 @@
                     </div>
                     
                 </div>
+                <div>
+                  <label for="">Prioridade: </label>
+                  <select id="selectprio"  name="select" #prioridade>
+                    <option value="#">Selecione</option>
+                    <option *ngFor="let p of GetPrioridade()" value="{{p}}">{{p}}</option>
+                </select>
+                </div>
                 
             </div>
             <div class="flex">
@@ -40,7 +128,7 @@
                 <textarea name="Descrição" rows="5" cols="50" #descricao></textarea>
             </div>
 
-            <button class="btn btn-success" type="submit">Enviar</button>
+            <button class="btn btn-success mt-2" type="submit">Enviar</button>
         </form>
     </div>
     <div class="containerlogo">
@@ -48,69 +136,60 @@
     </div>
     
 </section>
-<section id="listagem">
-    <form>
-        <div>
-          <label for="numero">Número:</label >
-          <input type="number" #id (input)="searchId($event)">
-        </div>
-      
-        <div class="flex-between">
-            <div>           
-                <label for="titulo">Título/Descrição:</label>
-                <input type="text" #titulo (input)="searchTitle($event)">
-            </div>
-
-          <div>
-            <label for="responsavel">Responsável:</label>
-            <select id="responsavel" #responsavel (input)="searchResponsavel($event)" required>
-              <option value="">Selecione um responsável</option>
-              <option *ngFor="let res of GetResponsaveis()" value="{{res.nome}}">{{res.nome}}</option>
+<section id="editaritem">
+  <div class="container">
+    <div>
+      <div class="d-flex justify-content-center">
+        <h3>EDITAR TAREFA: #ID:</h3>
+        <h3 #tarefaAlterada >{{tarefaalterada}}</h3>
+      </div>
+    </div>
+    <form id="cadastro" >
+      <div>
+          <label for="">Nome:</label>
+          <input type="text" placeholder="Título da Tarefa" #tituloalterado>
+      </div>
+      <div>
+          <label for="">Data:</label>
+          <input type="date" #dataalterada>
+      </div>
+  
+      <div>
+          <div id="selects" class="flex-between">
+              <div>
+                <label for="">Responsável:</label>
+                  <select id="selectresp" name="select" #responsavealterada>
+                      <option value="#">Selecione</option>
+                      <option *ngFor="let res of GetResponsaveis()" value="{{res.nome}}">{{res.nome}}</option>
+                  </select>
+              </div>
+              <div>
+                <label for="">Status:</label>
+                <select id="status" #statusalterada  required>
+                  <option value="false">Selecione um status</option>
+                  <option value="true">Concluído</option>
+                  <option value="false">Em andamento</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="">Prioridade:</label>
+              <select id="selectprio"  name="select" #prioridadealterada>
+                <option value="#">Selecione a prioridade</option>
+                <option *ngFor="let p of GetPrioridade()" value="{{p}}">{{p}}</option>
             </select>
+            </div>
           </div>
           
-        <div>
-            <label for="status">Status:</label>
-            <select id="status" #status  (input)="searchStatus($event)"  required>
-              <option value="#">Selecione um status</option>
-              <option value="true">Concluído</option>
-              <option value="false">Em andamento</option>
-            </select>
-          </div>
-        </div>
-        
-        
-      </form>
+      </div>
+      <div class="flex">
+          <label for="">Descrição</label>
+          <textarea name="Descrição" rows="5" cols="50" #descricaoalterada></textarea>
+      </div>
       
-    <table>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Tarefa</th>
-            <th>Responsavel</th>
-            <th>Descrição</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody  *ngFor="let tarefa of ViewsTarefas">
-          <tr>
-            <td>{{tarefa.id}}</td>
-            <td>{{tarefa.titulo}}</td>
-            <td>{{tarefa.responsavel}}</td>
-            <td>{{tarefa.descricao}}</td>
-            <td>
-                <a href="#">Editar</a> |
-                <a href="#" (click)="removerTarefa(tarefa.id)">Excluir</a> |
-                <ng-container *ngIf="tarefa.status">
-                  <span>Concluída</span>
-                </ng-container>
-                <ng-container *ngIf="!tarefa.status">
-                  <a href="#" (click)="marcarConcluida(tarefa.id)">Concluir</a>
-                </ng-container>
-                
-            </td>
-        </tr>
-        </tbody>
-      </table>
-      <button class="btn btn-outline-success mt-4" (click)="Recarregar()">Listar todos</button>
+      <button class="btn btn-success mt-2" type="submit" (click)="AlterarTarefa(tituloalterado.value, dataalterada.value, descricaoalterada.value, responsavealterada.value, statusalterada.value, prioridadealterada.value)">Enviar</button>
+  </form>
+  
+  </div>
+  
 </section>

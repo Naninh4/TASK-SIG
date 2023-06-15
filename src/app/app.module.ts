@@ -6,16 +6,13 @@ import { AppComponent } from './app.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SuperUserComponent } from './super-user/super-user.component';
-import { RouterModule, Router,RouterLink } from '@angular/router';
+import { RouterModule} from '@angular/router';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksComponent,
-    SuperUserComponent,
   ],
   imports: [
     
