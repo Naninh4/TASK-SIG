@@ -31,11 +31,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 * tentei deixar esse projeto o mais original possível, criando toda a identidade visual como se fosse uma prototipagem para o mercado. Portanto, a arte utilizada é autoral.
 
-# Sobre o Taskig
+# Sobre o Tasksig
 
 
--  Nome: A principio seria apenas o nome Task 
-Este projeto é uma aplicação de lista de tarefas desenvolvida em Angular. Permite ao usuário cadastrar, editar, listar e excluir tarefas, filtrando-as por diferentes critérios, como número, título, responsável e status.
+Este projeto é uma aplicação de lista de tarefas desenvolvida em Angular. Permite ao usuário cadastrar, editar, listar e excluir tarefas, filtrando-as por diferentes critérios, como número, título, responsável e status separadamente.
 
 ## Funcionalidades
 
@@ -43,11 +42,11 @@ O projeto possui as seguintes funcionalidades:
 
 ### Listagem
 
-A seção de listagem exibe todas as tarefas cadastradas. É possível filtrar as tarefas por número, título, responsável e status. Além disso, é possível marcar uma tarefa como concluída ou excluí-la.
+A seção de listagem exibe todas as tarefas cadastradas. É possível filtrar as tarefas por número, título, responsável e status. Além disso, é possível marcar uma tarefa como concluída ou excluí-la além de poder selecioná-la para edição que ocorre em uma secção posterior.
 
 ### Cadastro
 
-A seção de cadastro permite ao usuário adicionar novas tarefas. É necessário informar o título, a data, o responsável, a descrição e a prioridade da tarefa.
+A seção de cadastro permite ao usuário adicionar novas tarefas. É necessário informar o título, a data, o responsável, a descrição e a prioridade da tarefa. Caso contrário, retorna um alerta solicitando o preenchimento de todos os campos.
 
 ### Edição
 
@@ -65,6 +64,8 @@ A seção de edição permite ao usuário modificar os dados de uma tarefa exist
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.
 
-## Licença
+## Considerações finais.
+
+Esse foi o meu primeiro contato com angular
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
