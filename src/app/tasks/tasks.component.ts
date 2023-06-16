@@ -22,7 +22,7 @@ export class TasksComponent{
   private ListaDeTarefas: any[] = [];
   public ViewsTarefas: any[] = [];
   public tarefaalterada: any = [];
-  private ListPrioridade: any[]=['baixa','media','alta'];
+  private ListPrioridade: any[]=['baixa','média','alta'];
   public banco: Banco = new Banco();
   private tar: any[] = [];
   private admin: boolean = false;
