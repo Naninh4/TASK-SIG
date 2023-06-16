@@ -6,21 +6,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
 ## Further help
 
@@ -34,23 +22,44 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 # Sobre o Tasksig
 
 
-Este projeto é uma aplicação de lista de tarefas desenvolvida em Angular. Permite ao usuário cadastrar, editar, listar e excluir tarefas, filtrando-as por diferentes critérios, como número, título, responsável e status separadamente.
+Este projeto é uma aplicação de lista de tarefas desenvolvida em Angular. Permite ao admin cadastrar, editar, listar e excluir tarefas, filtrando-as por diferentes critérios, como número, título, responsável, status e prioridade separadamente.
+- Vale ressaltar que essas atividades só podem ser realizadas mediante o login devidamente autenticado.
 
 ## Funcionalidades
 
 O projeto possui as seguintes funcionalidades:
 
+
+### Autenticação
+
+A página inicial é uma tela de login que você pode acessar com as credenciais:
+
+- Login: admin
+- senha: 12345
+
+Se as credenciais forem válidas o app te redireciona para a tela principal onde estarão disponóveis o cadastro a listagem e edição das tarefas.
+Caso os campos estejam vázios o site retorna um alerta solicitando o preenchimento dos campos. E caso os campos sejam preenchidos de forma incorreta o alerta 
+informa que o usuário ou a senha estão incorretos.
+
+
 ### Listagem
 
-A seção de listagem exibe todas as tarefas cadastradas. É possível filtrar as tarefas por número, título, responsável e status. Além disso, é possível marcar uma tarefa como concluída ou excluí-la além de poder selecioná-la para edição que ocorre em uma secção posterior.
+A seção de listagem exibe todas as tarefas cadastradas. É possível filtrar as tarefas por número, título, responsável, status e prioridade. Além disso, é possível marcar uma tarefa como concluída ou excluí-la além de poder selecioná-la para edição que ocorre em uma secção posterior.
 
 ### Cadastro
 
-A seção de cadastro permite ao usuário adicionar novas tarefas. É necessário informar o título, a data, o responsável, a descrição e a prioridade da tarefa. Caso contrário, retorna um alerta solicitando o preenchimento de todos os campos.
+A seção de cadastro permite ao usuário adicionar novas tarefas. É necessário informar o título, a data, o responsável, a descrição e a prioridade da tarefa. Caso contrário, retorna um alerta solicitando o preenchimento de alguns campos que são obrigatórios:
+
+- Titulo.
+- Data.
+- Responsável.
+- Prioridade.
+
+Para mais, também é possível cadastrar um novo responsável para a tarefa clicando no icon de adição. Caso o campo enviado seja vazio, o programa apenas vai fechar o pop-up.
 
 ### Edição
 
-A seção de edição permite ao usuário modificar os dados de uma tarefa existente. É possível alterar o título, a data, a descrição, o responsável, o status e a prioridade da tarefa.
+A seção de edição permite ao usuário modificar os dados de uma tarefa existente. É possível alterar o título, a data, a descrição, o responsável, o status e a prioridade da tarefa. Caso os campos estejam vazios é retornado um alerta para que os campos sejam preenchidos.
 
 ## Como executar o projeto
 
@@ -60,12 +69,8 @@ A seção de edição permite ao usuário modificar os dados de uma tarefa exist
 4. Execute o comando `ng serve` para iniciar o servidor de desenvolvimento.
 5. Abra o navegador e acesse `http://localhost:4200` para visualizar a aplicação.
 
-## Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests.
-
+   
 ## Considerações finais.
 
-Esse foi o meu primeiro contato com angular
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
+Esse foi o meu primeiro contato com o framework Angular, então algumas coisas que eu queria implementar ao projeto ficaram de fora, também devido ao tempo de elaboração.
+Ademais, reconheço que foi uma experiência enriquecedora, haja vista o potencial da ferramenta utilizada, achei bastante e o fato de ser orientada à componentes ajudou muito.
