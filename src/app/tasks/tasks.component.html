@@ -1,7 +1,22 @@
+<div>
+  <h1>Tasksig: Gerenciador de Tarefas</h1>
+
+  </div>
 <div class="buttons">
   <a href="#listagem"><button class="btn btn-success">Listagem</button></a>
-  <a href="#cadastro"><button class="btn btn-success">Cadastro</button></a>
+  <a href="#cadastro"><button class="btn btn-success">Cadastro de tarefa</button></a>
   <a href="#editaritem"><button class="btn btn-success">Edição</button></a>
+  <a routerLink="login"><button ((click))="sair()" class="btn btn-success">Sair</button></a>
+
+</div>
+<div class="d-flex justify-content-center text-center mt-2">
+  <ng-container *ngIf="GetAdmin() === true">
+    <h5>Bem Vindo Admin!</h5>
+  </ng-container>
+  <ng-container *ngIf="GetAdmin() === false">
+    <p></p>
+  </ng-container>
+  
 </div>
 <section id="listagem" class="container-fluid">
   <div class="container">
@@ -39,6 +54,13 @@
             <option value="true">Concluído</option>
             <option value="false">Em andamento</option>
           </select>
+        </div>
+        <div>
+          <label for="">Prioridade: </label>
+          <select id="selectprio"  name="select" #prioridadeevent  (input)="searchPrioridade($event)" >
+            <option value="#">Selecione a prioridade</option>
+            <option *ngFor="let p of GetPrioridade()" value="{{p}}">{{p}}</option>
+        </select>
         </div>
       </div>
       

@@ -1,11 +1,11 @@
-main{
+
+main,app-login,app-tasks{
     margin: auto;
-    display: flex;
+
 }
 
-app-tasks{
-    margin: auto;
-    width: 80% !important;
-    margin: 10%;
-    height: 100%;
+
+router-outlet{
+    background: linear-gradient(to bottom right, rgba(28, 241, 0, 0.459) , #00AC49, rgba(0, 255, 85, 0.795)) no-repeat !important;
 }
+

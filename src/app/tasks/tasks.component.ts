@@ -1,9 +1,9 @@
 import { Component,ElementRef,OnInit, Renderer2, ViewChild} from '@angular/core';
 import { ResponsaveisTasksComponent } from '../responsaveis-tasks/responsaveis-tasks.component';
 import { MatDialog} from '@angular/material/dialog';
-import { Banco} from './task';
-
-
+import { Banco } from './task';
+import { AuthService } from '../login/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html' ,
@@ -25,18 +25,30 @@ export class TasksComponent{
   private ListPrioridade: any[]=['baixa','media','alta'];
   public banco: Banco = new Banco();
   private tar: any[] = [];
+  private admin: boolean = false;
 
 
-  constructor(private dialog: MatDialog, private renderer: Renderer2){
+  constructor(private dialog: MatDialog, private router: Router, public autenticado: AuthService,){
 
   }
 
   ngOnInit(): void {
-    
+    if (this.autenticado.usuarioAtenticado === true){
+      this.admin = this.autenticado.usuarioAtenticado
+    }else{
+      this.router.navigate(['/login'])
+    }
    this.ResponsavelList = this.banco.ResponsavelList
    this.ListaDeTarefas = this.banco.ListaDeTarefas
     
   }
+  sair(){
+    this.admin = false;
+  }
+  GetAdmin(){
+    return this.admin
+  }
+
   Recarregar(): void {
     this.ViewsTarefas = this.ListaDeTarefas;
   }
@@ -87,6 +99,7 @@ export class TasksComponent{
     const tarefa_cadastrada = this.ListaDeTarefas.find(tarefa => tarefa.titulo.toLowerCase() === titulo.toLowerCase());
     if (!tarefa_cadastrada) {
       this.ListaDeTarefas.push(novaTarefa);
+      return alert("Tarefa Cadastrada!")
     }
 
   }
@@ -151,6 +164,17 @@ export class TasksComponent{
       this.ViewsTarefas = this.ListaDeTarefas.filter((tarefa) => tarefa.status === false);
     }
   }
+  }
+  searchPrioridade(e: Event): void {
+
+    const target = e.target as HTMLSelectElement;
+    const value = target.value;
+      
+      if(value === "#"){
+        this.ViewsTarefas = []
+      }else{
+      this.ViewsTarefas = this.ListaDeTarefas.filter((tarefa) => tarefa.prioridade === value);
+    }
   }
   searchResponsavel(e: Event): void {
     const target = e.target as HTMLSelectElement;

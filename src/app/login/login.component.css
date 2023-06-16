@@ -1,0 +1,21 @@
+#login{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    background-color: white;
+    width: 500px;
+    height: 300px;
+    padding: 2%;
+    border-radius: 30px;
+    margin: auto;
+    margin-top: 20px;
+}
+span{
+    color: #00AC49;
+}
+input{
+    width: 100%;
+}
+  

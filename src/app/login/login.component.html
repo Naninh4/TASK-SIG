@@ -1,0 +1,29 @@
+<div id="login">
+
+
+    <div>
+        <h2>Bem vind@ ao <span>Tasksig!</span></h2>
+
+    </div>
+
+    <div #body>
+        <div>
+            <label for="login">Login:</label>
+            <input [(ngModel)]="admin.nome" placeholder="login" type="text">
+        </div>
+        <div>
+            <label for="senha">Senha:</label>
+            <input [(ngModel)]="admin.senha" placeholder="senha" type="password" name="senha">
+        </div>
+
+
+        <button type="submit" class="btn btn-success mt-2" (click)="fazerLogin()">Efetuar Login</button>
+
+    </div>
+</div>
+
+<ng-container *ngIf=" authService.usuarioAtenticado === true">
+    
+</ng-container>
+ 
+  

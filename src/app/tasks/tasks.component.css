@@ -8,7 +8,9 @@
 input, select{
   width: 100%;
 }
-
+h5{
+  color: white;
+}
 
 .flex-between{
   justify-content: space-between;

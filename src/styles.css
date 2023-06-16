@@ -1,9 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body {
-    width: 100% !important;
-
+html, body{
+    background:#00AC49!important;
+    height: 100% !important;
 }
+
+
 .buttons{
     width: 50%;
     margin: auto;
@@ -12,7 +14,10 @@ html, body {
 }
 #img{
     background-color: rgba(255, 255, 255, 0.356);
-    border-radius: 50%;
+    border-radius: 50px;
+    width: 500px;
+    display: flex;
+    justify-content: center;
     margin: 5px;
 }
 nav{
@@ -68,12 +73,10 @@ textarea{
     border-radius: 20px !important;
 }
 
-body {
+body{
    
     font-family: 'Montserrat' sans-serif;
     font-size: 12px;
     margin: 0;
-    background: linear-gradient(to bottom right, rgba(28, 241, 0, 0.459) , #00AC49, rgba(0, 255, 85, 0.795));
-
 } 
 

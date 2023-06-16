@@ -7,12 +7,15 @@ import { TasksComponent } from './tasks/tasks.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule} from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './login/auth.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksComponent,
+    LoginComponent,
   ],
   imports: [
     
@@ -22,7 +25,7 @@ import { RouterModule} from '@angular/router';
     BrowserAnimationsModule,
     MatDialogModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
   exports: [RouterModule] 
 })
