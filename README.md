@@ -74,5 +74,3 @@ A seção de edição permite ao usuário modificar os dados de uma tarefa exist
 
 Esse foi o meu primeiro contato com o framework Angular, então algumas coisas que eu queria implementar ao projeto ficaram de fora, também devido ao tempo de elaboração.
 Ademais, reconheço que foi uma experiência enriquecedora, haja vista o potencial da ferramenta utilizada, achei bastante e o fato de ser orientada à componentes ajudou muito.
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
